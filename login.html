@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MBTI 테스트 시작하기</title>
+    <style>
+      body {
+        font-family: "Comic Sans MS", sans-serif;
+        background: linear-gradient(90deg, #f8f8e3, #c2eaba);;
+        color: black;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      .container {
+        width: 90%;
+        max-width: 400px;
+        background: white;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        margin: 50px auto;
+      }
+      h2 {
+        color: gray;
+        margin-bottom: 20px;
+        font-size: 2rem;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: gray;
+      }
+      input, select {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid rgb(184, 184, 185);
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button {
+        background: linear-gradient(135deg, #a3d977, #7aba6f);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+      .link {
+        margin-top: 10px;
+      }
+      .link a {
+        text-decoration: none;
+        color: #7aba6f;
+        font-weight: bold;
+      }
+      .link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="info-container">
+      <h2>테스트 시작하기</h2>
+      <form id="user-info-form">
+        <label for="nickname">별명</label>
+        <input type="text" id="nickname" name="nickname" placeholder="별명을 입력하세요" required />
+        
+        <label for="gender">성별</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>성별을 선택하세요</option>
+          <option value="남성">남성</option>
+          <option value="여성">여성</option>
+          <option value="기타">기타</option>
+        </select>
+        
+        <label for="age">나이</label>
+        <input type="number" id="age" name="age" placeholder="나이를 입력하세요" min="1" max="100" required />
+        
+        <label for="school">학교</label>
+        <input type="text" id="school" name="school" placeholder="학교를 입력하세요" required />
+        
+        <button type="submit" id="start-test-btn">테스트 시작하기</button>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("user-info-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        // 사용자 정보 저장
+        const userData = {
+          nickname: document.getElementById("nickname").value,
+          gender: document.getElementById("gender").value,
+          age: document.getElementById("age").value,
+          school: document.getElementById("school").value
+        };
+        
+        // 사용자 정보를 로컬 스토리지에 저장
+        localStorage.setItem("mbti_user_data", JSON.stringify(userData));
+        
+        // 테스트 페이지로 이동
+        window.location.href = "ques.html";
+      });
+    <div class="container" id="login-container">
+      <h2>로그인</h2>
+      <form action="#" method="post">
+        <label for="email">이메일</label>
+        <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required />
+        <button type="submit">로그인</button>
+      </form>
+      <div class="link">
+        <p>계정이 없으신가요? <a href="#" id="to-signup">회원가입</a></p>
+      </div>
+    </div>
+
+    <div class="container" id="signup-container" style="display: none;">
+      <h2>회원가입</h2>
+      <form action="#" method="post">
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required />
+        <label for="email-signup">이메일</label>
+        <input type="email" id="email-signup" name="email-signup" placeholder="이메일을 입력하세요" required />
+        <label for="password-signup">비밀번호</label>
+        <input type="password" id="password-signup" name="password-signup" placeholder="비밀번호를 생성하세요" required />
+        <label for="confirm-password">비밀번호 확인</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호를 확인하세요" required />
+        <button type="submit">회원가입</button>
+      </form>
+      <div class="link">
+        <p>이미 계정이 있으신가요? <a href="#" id="to-login">로그인</a></p>
+      </div>
+    </div>
+
+    <script>
+      const loginContainer = document.getElementById("login-container");
+      const signupContainer = document.getElementById("signup-container");
+
+      document.getElementById("to-signup").addEventListener("click", (e) => {
+        e.preventDefault();
+        loginContainer.style.display = "none";
+        signupContainer.style.display = "block";
+      });
+
+      document.getElementById("to-login").addEventListener("click", (e) => {
+        e.preventDefault();
+        signupContainer.style.display = "none";
+        loginContainer.style.display = "block";
+      });
+
+      // 데모용: 폼 제출 시 페이지 새로고침 없이 알림을 띄웁니다.
+      document.querySelectorAll("form").forEach((form) => {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("폼이 제출되었습니다.");
+        });
+      });
+    </script>
+  </body>
+</html>
