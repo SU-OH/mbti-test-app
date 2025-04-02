@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>MBTI 테스트</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8f8e3, #c2eaba);
+      font-family: 'Arial', sans-serif;
+    }
+    
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 2rem;
+    }
+    
+    .start-button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .start-button:hover {
+      transform: scale(1.05);
+    }
+    
+    .input-container {
+      margin-bottom: 2rem;
+    }
+    
+    input[type="text"] {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      margin-right: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MBTI 성격 유형 테스트</h1>
+    <div class="input-container">
+      <input type="text" id="nickname" placeholder="닉네임을 입력하세요" />
+    </div>
+    <button class="start-button" onclick="startTest()">테스트 시작하기</button>
+  </div>
+
+  <script>
+    function startTest() {
+      const nickname = document.getElementById('nickname').value;
+      if (nickname.trim() === '') {
+        alert('닉네임을 입력해주세요!');
+        return;
+      }
+      
+      // 세션 스토리지에 사용자 정보 저장
+      sessionStorage.setItem('userData', JSON.stringify({
+        nickname: nickname,
+        timestamp: new Date().toISOString()
+      }));
+      
+      // 테스트 페이지로 이동
+      window.location.href = 'ques.html';
+    }
+  </script>
+</body>
+</html>
